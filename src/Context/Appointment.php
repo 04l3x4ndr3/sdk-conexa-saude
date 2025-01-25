@@ -7,7 +7,7 @@ use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use ProfessionalType;
 
-class appointment extends HTTPClient
+class Appointment extends HTTPClient
 {
 
     public function __construct(?Configuration $configuration = null)
@@ -466,5 +466,138 @@ class appointment extends HTTPClient
         );
         $endpoint = "/integration/enterprise/appointment/scheduled/semi-complete";
         return $this->call('POST', $endpoint, $data);
+    }
+
+    /**
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/createAppointmentScheduledWithoutSpecialist
+     * Schedules an appointment without specifying a specialist.
+     *
+     * @param int $patientId The ID of the patient for whom the appointment is being scheduled.
+     * @param string $dateTimeAppointment The date and time of the appointment in a formatted string.
+     * @param array $optionalData An associative array containing optional data for the appointment.
+     *                      This may include keys such as "specialistType" and "specialtyId".
+     * @return object An object containing the result of the scheduling operation.
+     * @throws GuzzleException
+     */
+    public function scheduledWithoutSpecialist(int $patientId, string $dateTimeAppointment, array $optionalData = []): object
+    {
+        $data = array_filter(
+            array_merge([
+                'patientId' => $patientId,
+                'dateTimeAppointment' => $dateTimeAppointment,
+                'specialistType' => null,
+                'specialtyId' => null,
+            ], $optionalData)
+        );
+        $endpoint = "/appointment/scheduled/without-specialist";
+        return $this->call('POST', $endpoint, $data);
+    }
+
+    /**
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentScheduledSimple
+     * Schedules a simple appointment for a patient with a specific doctor.
+     *
+     * @param ProfessionalType $professionalType The type of professional associated with the appointment.
+     * @param string $appointmentDate The date and time for the appointment in a valid datetime format.
+     * @param int $doctorId The ID of the doctor who will conduct the appointment.
+     * @param int $patientId The ID of the patient for whom the appointment is being scheduled.
+     * @param array $optionalData An optional associative array containing additional appointment details.
+     *                      The keys may include "historyPhysicalExamination", "prescription",
+     *                      "previousDiagnosis", "screening", and "payment".
+     * @return object An object containing the result of the scheduling operation.
+     * @throws GuzzleException
+     */
+    public function scheduledSimple(ProfessionalType $professionalType, string $appointmentDate, int $doctorId, int $patientId, array $optionalData = []): object
+    {
+        $params = http_build_query(['professionalType' => $professionalType->value]);
+        $data = array_filter(
+            array_merge([
+                'appointmentDate' => $appointmentDate,
+                'doctorId' => $doctorId,
+                'patientId' => $patientId,
+                'historyPhysicalExamination' => null,
+                'prescription' => null,
+                'previousDiagnosis' => null,
+                'screening' => null,
+                'payment' => null, // [creditCardId]
+            ], $optionalData)
+        );
+        $endpoint = "/integration/enterprise/v2/appointment/scheduled/simple?$params";
+        return $this->call('POST', $endpoint, $data);
+    }
+
+    /**
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/medicinesByName
+     * Retrieves a list of medicines based on the provided name.
+     *
+     * @param string $name The name or partial name of the medicine to search for.
+     * @return object An object containing the list of medicines that match the search criteria.
+     * @throws GuzzleException
+     */
+    public function getMedicinesByName(string $name): object
+    {
+        $endpoint = "/integration/enterprise/appointment/medicines/$name";
+        return $this->call('GET', $endpoint);
+    }
+
+    /**
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentSpecialties
+     * Retrieves the list of available specialties for appointments.
+     *
+     * @return object An object containing the list of specialties for appointments.
+     * @throws GuzzleException
+     */
+    public function getSpecialties(): object
+    {
+        $endpoint = "/integration/enterprise/appointment/specialties";
+        return $this->call('GET', $endpoint);
+    }
+
+    /**
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentCallReport
+     * Retrieves the call report for a specified date range and page number.
+     *
+     * @param int $page The page number to retrieve from the call report.
+     * @param string $startDate The start date of the date range for the call report, in "YYYY-MM-DD" format.
+     * @param string $endDate The end date of the date range for the call report, in "YYYY-MM-DD" format.
+     * @return object An object containing the data of the requested call report.
+     * @throws GuzzleException
+     */
+    public function getCallReport(int $page, string $startDate, string $endDate): object
+    {
+        $params = http_build_query([
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+        ]);
+        $endpoint = "/integration/enterprise/appointment/calls/report/$page?$params";
+        return $this->call('GET', $endpoint);
+    }
+
+    /**
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentPrescriptionsAmount
+     * Retrieves the amount of prescriptions associated with a specific appointment.
+     *
+     * @param int $appointmentID The ID of the appointment for which the prescription amount is being retrieved.
+     * @return object An object containing the information about the prescription amount.
+     * @throws GuzzleException
+     */
+    public function getPrescriptionsAmount(int $appointmentID): object
+    {
+        $endpoint = "/integration/enterprise/appointment/prescriptions/amount/$appointmentID";
+        return $this->call('GET', $endpoint);
+    }
+
+    /**
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentResendPrescriptions
+     * Resends the prescriptions associated with a specific appointment.
+     *
+     * @param int $appointmentID The ID of the appointment whose prescriptions are being resent.
+     * @return object An object containing the result of the resend operation.
+     * @throws GuzzleException
+     */
+    public function resendPrescriptions(int $appointmentID): object
+    {
+        $endpoint = "/integration/enterprise/v2/appointment/resend/prescriptions/$appointmentID";
+        return $this->call('POST', $endpoint);
     }
 }

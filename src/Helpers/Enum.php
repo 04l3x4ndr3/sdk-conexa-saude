@@ -95,3 +95,14 @@ enum UfAcronym: string
     case GO = "GO";
     case DF = "DF";
 }
+
+enum WeekDay: string
+{
+    case SEGUNDA = "SEGUNDA";
+    case TERCA = "TERCA";
+    case QUARTA = "QUARTA";
+    case QUINTA = "QUINTA";
+    case SEXTA = "SEXTA";
+    case SABADO = "SABADO";
+    case DOMINGO = "DOMINGO";
+}

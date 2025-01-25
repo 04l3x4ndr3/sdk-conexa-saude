@@ -2,869 +2,239 @@
 
 namespace O4l3x4ndr3\SdkConexa\Context;
 
-class Doctor
+use GuzzleHttp\Exception\GuzzleException;
+use O4l3x4ndr3\SdkConexa\Configuration;
+use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
+
+class Doctor extends HTTPClient
 {
-    private int $id;
-    private string $name;
-    private string $lastname;
-    private string $mail;
-    private string $cellphone;
-    private int $specialtyId;
-    private \GenreType $sex;
-    private bool $isBrazilian;
-    private string $cpf;
-    private string $crm;
-    private string $crmUf;
-    private string $dateBirth;
-    private ?string $cep;
-    private ?string $city;
-    private ?string $uf;
-    private ?string $neighborhood;
-    private ?string $address;
-    private ?string $complement;
-    private ?string $socialName;
-    private ?string $motherName;
-    private ?bool $unknowMother;
-    private ?int $idGender;
-    private ?int $idRaceColor;
-    private ?int $idNationality;
-    private ?string $birthCounty;
-    private ?int $idBirthUF;
-    private ?string $naturalizationDate;
-    private ?int $idBirthCountry;
-    private ?string $passport;
-    private ?int $idPassportIssuingCountry;
-    private ?string $passportIssuingDate;
-    private ?string $passportExpiryDate;
-    private ?string $residencialPhone;
-    private ?int $idAddressCountry;
-    private ?string $cns;
-    private ?string $identity;
-    private ?int $idIdentityUF;
-    private ?string $identityIssuingDate;
-    private ?string $identityIssuingBody;
-    private ?string $nisNumber;
-    private ?int $idCbo;
-    private bool $blockAppointmentQueue;
 
-    public function __construct(
-        int        $id,
-        string     $name,
-        string     $lastname,
-        string     $mail,
-        string     $cellphone,
-        int        $specialtyId,
-        \GenreType $sex,
-        bool       $isBrazilian,
-        string     $cpf,
-        string     $crm,
-        string     $crmUf,
-        string     $dateBirth
-    )
+    public function __construct(?Configuration $configuration = null)
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->lastname = $lastname;
-        $this->mail = $mail;
-        $this->cellphone = $cellphone;
-        $this->specialtyId = $specialtyId;
-        $this->sex = $sex;
-        $this->isBrazilian = $isBrazilian;
-        $this->cpf = $cpf;
-        $this->crm = $crm;
-        $this->crmUf = $crmUf;
-        $this->dateBirth = $dateBirth;
-        $this->cep = null;
-        $this->city = null;
-        $this->uf = null;
-        $this->neighborhood = null;
-        $this->address = null;
-        $this->complement = null;
-        $this->socialName = null;
-        $this->motherName = null;
-        $this->unknowMother = false;
-        $this->idGender = null;
-        $this->idRaceColor = null;
-        $this->idNationality = null;
-        $this->birthCounty = null;
-        $this->idBirthUF = null;
-        $this->naturalizationDate = null;
-        $this->idBirthCountry = null;
-        $this->passport = null;
-        $this->idPassportIssuingCountry = null;
-        $this->passportIssuingDate = null;
-        $this->passportExpiryDate = null;
-        $this->residencialPhone = null;
-        $this->idAddressCountry = null;
-        $this->cns = null;
-        $this->identity = null;
-        $this->idIdentityUF = null;
-        $this->identityIssuingDate = null;
-        $this->identityIssuingBody = null;
-        $this->nisNumber = null;
-        $this->idCbo = null;
-        $this->blockAppointmentQueue = false;
+        parent::__construct($configuration);
     }
 
     /**
-     * @return int
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2DoctorAvailableTimes
+     * Retrieves the available times for a specific doctor on a given date.
+     *
+     * @param int $id The identifier of the doctor.
+     * @param string $date The date for which to fetch available times in YYYY-MM-DD format.
+     *
+     * @return object The response object containing the available times.
+     * @throws GuzzleException
      */
-    public function getId(): int
+    public function getAvailableTimes(int $id, string $date): object
     {
-        return $this->id;
+        $params = http_build_query([
+            'id' => $id,
+            'date' => $date
+        ]);
+        $endpoint = "/integration/enterprise/v2/doctor/availabletimes?$params";
+        return $this->call('GET', $endpoint);
     }
 
     /**
-     * @param int $id
-     * @return Doctor
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorInsertion
+     * Inserts a doctor record into the system.
+     *
+     * @param \O4l3x4ndr3\SdkConexa\Types\Doctor $Doctor The doctor object to be inserted, represented as a Doctor type.
+     * @return object The response object containing the result of the operation.
+     * @throws GuzzleException
      */
-    public function setId(int $id): Doctor
+    public function insert(\O4l3x4ndr3\SdkConexa\Types\Doctor $Doctor): object
     {
-        $this->id = $id;
-        return $this;
+        $endpoint = "/integration/enterprise/doctors";
+        $data = $Doctor->toArray();
+        return $this->call('POST', $endpoint, $data);
     }
 
     /**
-     * @return string
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorBYId
+     * Retrieves a doctor record by its unique identifier.
+     *
+     * @param int $id The unique identifier of the doctor to be retrieved.
+     * @param int|null $appointmentId Optional appointment identifier to filter the response.
+     * @return object The response object containing the details of the doctor.
+     * @throws GuzzleException
      */
-    public function getName(): string
+    public function getById(int $id, ?int $appointmentId = null): object
     {
-        return $this->name;
+        $params = !empty($appointmentId) ? http_build_query(['appointmentId' => $appointmentId]) : null;
+        $endpoint = "/integration/enterprise/doctors/$id?$params";
+        return $this->call('GET', $endpoint);
     }
 
     /**
-     * @param string $name
-     * @return Doctor
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2DoctorActivateBYId
+     * Activates a doctor record in the system by its unique identifier.
+     *
+     * @param int $id The unique identifier of the doctor to be activated.
+     * @return object The response object containing the result of the activation operation.
+     * @throws GuzzleException
      */
-    public function setName(string $name): Doctor
+    public function activateById(int $id): object
     {
-        $this->name = $name;
-        return $this;
+        $endpoint = "/integration/enterprise/v2/doctors/$id/activate";
+        return $this->call('POST', $endpoint);
     }
 
     /**
-     * @return string
+     * Deactivates a doctor by their unique identifier within the system.
+     *
+     * @param int $id The unique identifier of the doctor to be deactivated.
+     * @return object The response object containing the result of the operation.
+     * @throws GuzzleException
      */
-    public function getLastname(): string
+    public function inativeById(int $id): object
     {
-        return $this->lastname;
+        $endpoint = "/integration/enterprise/v2/doctors/$id/inactivate";
+        return $this->call('POST', $endpoint);
     }
 
     /**
-     * @param string $lastname
-     * @return Doctor
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorByCpf
+     * Retrieves a doctor's record based on the provided CPF.
+     *
+     * @param int $cpf The CPF of the doctor to be retrieved.
+     * @param int|null $onlyActive Optional parameter to filter only active records. Pass null to fetch regardless of status.
+     * @return object The response object containing the doctor's record or an error if not found.
+     * @throws GuzzleException
      */
-    public function setLastname(string $lastname): Doctor
+    public function getByCpf(int $cpf, ?int $onlyActive = null): object
     {
-        $this->lastname = $lastname;
-        return $this;
+        $params = !empty($onlyActive) ? http_build_query(['$onlyActive' => $onlyActive]) : null;
+        $endpoint = "/integration/enterprise/doctors/cpf/$cpf?$params";
+        return $this->call('GET', $endpoint);
     }
 
     /**
-     * @return string
-     */
-    public function getMail(): string
-    {
-        return $this->mail;
-    }
-
-    /**
-     * @param string $mail
-     * @return Doctor
-     */
-    public function setMail(string $mail): Doctor
-    {
-        $this->mail = $mail;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCellphone(): string
-    {
-        return $this->cellphone;
-    }
-
-    /**
-     * @param string $cellphone
-     * @return Doctor
-     */
-    public function setCellphone(string $cellphone): Doctor
-    {
-        $this->cellphone = $cellphone;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSpecialtyId(): int
-    {
-        return $this->specialtyId;
-    }
-
-    /**
-     * @param int $specialtyId
-     * @return Doctor
-     */
-    public function setSpecialtyId(int $specialtyId): Doctor
-    {
-        $this->specialtyId = $specialtyId;
-        return $this;
-    }
-
-    /**
-     * @return \GenreType
-     */
-    public function getSex(): \GenreType
-    {
-        return $this->sex;
-    }
-
-    /**
-     * @param \GenreType $sex
-     * @return Doctor
-     */
-    public function setSex(\GenreType $sex): Doctor
-    {
-        $this->sex = $sex;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isBrazilian(): bool
-    {
-        return $this->isBrazilian;
-    }
-
-    /**
-     * @param bool $isBrazilian
-     * @return Doctor
-     */
-    public function setIsBrazilian(bool $isBrazilian): Doctor
-    {
-        $this->isBrazilian = $isBrazilian;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCpf(): string
-    {
-        return $this->cpf;
-    }
-
-    /**
-     * @param string $cpf
-     * @return Doctor
-     */
-    public function setCpf(string $cpf): Doctor
-    {
-        $this->cpf = $cpf;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCrm(): string
-    {
-        return $this->crm;
-    }
-
-    /**
-     * @param string $crm
-     * @return Doctor
-     */
-    public function setCrm(string $crm): Doctor
-    {
-        $this->crm = $crm;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCrmUf(): string
-    {
-        return $this->crmUf;
-    }
-
-    /**
-     * @param string $crmUf
-     * @return Doctor
-     */
-    public function setCrmUf(string $crmUf): Doctor
-    {
-        $this->crmUf = $crmUf;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDateBirth(): string
-    {
-        return $this->dateBirth;
-    }
-
-    /**
-     * @param string $dateBirth
-     * @return Doctor
-     */
-    public function setDateBirth(string $dateBirth): Doctor
-    {
-        $this->dateBirth = $dateBirth;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCep(): ?string
-    {
-        return $this->cep;
-    }
-
-    /**
-     * @param string|null $cep
-     * @return Doctor
-     */
-    public function setCep(?string $cep): Doctor
-    {
-        $this->cep = $cep;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param string|null $city
-     * @return Doctor
-     */
-    public function setCity(?string $city): Doctor
-    {
-        $this->city = $city;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getUf(): ?string
-    {
-        return $this->uf;
-    }
-
-    /**
-     * @param string|null $uf
-     * @return Doctor
-     */
-    public function setUf(?string $uf): Doctor
-    {
-        $this->uf = $uf;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getNeighborhood(): ?string
-    {
-        return $this->neighborhood;
-    }
-
-    /**
-     * @param string|null $neighborhood
-     * @return Doctor
-     */
-    public function setNeighborhood(?string $neighborhood): Doctor
-    {
-        $this->neighborhood = $neighborhood;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param string|null $address
-     * @return Doctor
-     */
-    public function setAddress(?string $address): Doctor
-    {
-        $this->address = $address;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getComplement(): ?string
-    {
-        return $this->complement;
-    }
-
-    /**
-     * @param string|null $complement
-     * @return Doctor
-     */
-    public function setComplement(?string $complement): Doctor
-    {
-        $this->complement = $complement;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSocialName(): ?string
-    {
-        return $this->socialName;
-    }
-
-    /**
-     * @param string|null $socialName
-     * @return Doctor
-     */
-    public function setSocialName(?string $socialName): Doctor
-    {
-        $this->socialName = $socialName;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getMotherName(): ?string
-    {
-        return $this->motherName;
-    }
-
-    /**
-     * @param string|null $motherName
-     * @return Doctor
-     */
-    public function setMotherName(?string $motherName): Doctor
-    {
-        $this->motherName = $motherName;
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getUnknowMother(): ?bool
-    {
-        return $this->unknowMother;
-    }
-
-    /**
-     * @param bool|null $unknowMother
-     * @return Doctor
-     */
-    public function setUnknowMother(?bool $unknowMother): Doctor
-    {
-        $this->unknowMother = $unknowMother;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdGender(): ?int
-    {
-        return $this->idGender;
-    }
-
-    /**
-     * @param int|null $idGender
-     * @return Doctor
-     */
-    public function setIdGender(?int $idGender): Doctor
-    {
-        $this->idGender = $idGender;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdRaceColor(): ?int
-    {
-        return $this->idRaceColor;
-    }
-
-    /**
-     * @param int|null $idRaceColor
-     * @return Doctor
-     */
-    public function setIdRaceColor(?int $idRaceColor): Doctor
-    {
-        $this->idRaceColor = $idRaceColor;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdNationality(): ?int
-    {
-        return $this->idNationality;
-    }
-
-    /**
-     * @param int|null $idNationality
-     * @return Doctor
-     */
-    public function setIdNationality(?int $idNationality): Doctor
-    {
-        $this->idNationality = $idNationality;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getBirthCounty(): ?string
-    {
-        return $this->birthCounty;
-    }
-
-    /**
-     * @param string|null $birthCounty
-     * @return Doctor
-     */
-    public function setBirthCounty(?string $birthCounty): Doctor
-    {
-        $this->birthCounty = $birthCounty;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdBirthUF(): ?int
-    {
-        return $this->idBirthUF;
-    }
-
-    /**
-     * @param int|null $idBirthUF
-     * @return Doctor
-     */
-    public function setIdBirthUF(?int $idBirthUF): Doctor
-    {
-        $this->idBirthUF = $idBirthUF;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getNaturalizationDate(): ?string
-    {
-        return $this->naturalizationDate;
-    }
-
-    /**
-     * @param string|null $naturalizationDate
-     * @return Doctor
-     */
-    public function setNaturalizationDate(?string $naturalizationDate): Doctor
-    {
-        $this->naturalizationDate = $naturalizationDate;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdBirthCountry(): ?int
-    {
-        return $this->idBirthCountry;
-    }
-
-    /**
-     * @param int|null $idBirthCountry
-     * @return Doctor
-     */
-    public function setIdBirthCountry(?int $idBirthCountry): Doctor
-    {
-        $this->idBirthCountry = $idBirthCountry;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPassport(): ?string
-    {
-        return $this->passport;
-    }
-
-    /**
-     * @param string|null $passport
-     * @return Doctor
-     */
-    public function setPassport(?string $passport): Doctor
-    {
-        $this->passport = $passport;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdPassportIssuingCountry(): ?int
-    {
-        return $this->idPassportIssuingCountry;
-    }
-
-    /**
-     * @param int|null $idPassportIssuingCountry
-     * @return Doctor
-     */
-    public function setIdPassportIssuingCountry(?int $idPassportIssuingCountry): Doctor
-    {
-        $this->idPassportIssuingCountry = $idPassportIssuingCountry;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPassportIssuingDate(): ?string
-    {
-        return $this->passportIssuingDate;
-    }
-
-    /**
-     * @param string|null $passportIssuingDate
-     * @return Doctor
-     */
-    public function setPassportIssuingDate(?string $passportIssuingDate): Doctor
-    {
-        $this->passportIssuingDate = $passportIssuingDate;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPassportExpiryDate(): ?string
-    {
-        return $this->passportExpiryDate;
-    }
-
-    /**
-     * @param string|null $passportExpiryDate
-     * @return Doctor
-     */
-    public function setPassportExpiryDate(?string $passportExpiryDate): Doctor
-    {
-        $this->passportExpiryDate = $passportExpiryDate;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getResidencialPhone(): ?string
-    {
-        return $this->residencialPhone;
-    }
-
-    /**
-     * @param string|null $residencialPhone
-     * @return Doctor
-     */
-    public function setResidencialPhone(?string $residencialPhone): Doctor
-    {
-        $this->residencialPhone = $residencialPhone;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdAddressCountry(): ?int
-    {
-        return $this->idAddressCountry;
-    }
-
-    /**
-     * @param int|null $idAddressCountry
-     * @return Doctor
-     */
-    public function setIdAddressCountry(?int $idAddressCountry): Doctor
-    {
-        $this->idAddressCountry = $idAddressCountry;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCns(): ?string
-    {
-        return $this->cns;
-    }
-
-    /**
-     * @param string|null $cns
-     * @return Doctor
-     */
-    public function setCns(?string $cns): Doctor
-    {
-        $this->cns = $cns;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getIdentity(): ?string
-    {
-        return $this->identity;
-    }
-
-    /**
-     * @param string|null $identity
-     * @return Doctor
-     */
-    public function setIdentity(?string $identity): Doctor
-    {
-        $this->identity = $identity;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getIdIdentityUF(): ?int
-    {
-        return $this->idIdentityUF;
-    }
-
-    /**
-     * @param int|null $idIdentityUF
-     * @return Doctor
-     */
-    public function setIdIdentityUF(?int $idIdentityUF): Doctor
-    {
-        $this->idIdentityUF = $idIdentityUF;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getIdentityIssuingDate(): ?string
-    {
-        return $this->identityIssuingDate;
-    }
-
-    /**
-     * @param string|null $identityIssuingDate
-     * @return Doctor
-     */
-    public function setIdentityIssuingDate(?string $identityIssuingDate): Doctor
-    {
-        $this->identityIssuingDate = $identityIssuingDate;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getIdentityIssuingBody(): ?string
-    {
-        return $this->identityIssuingBody;
-    }
-
-    /**
-     * @param string|null $identityIssuingBody
-     * @return Doctor
-     */
-    public function setIdentityIssuingBody(?string $identityIssuingBody): Doctor
-    {
-        $this->identityIssuingBody = $identityIssuingBody;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getNisNumber(): ?string
-    {
-        return $this->nisNumber;
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorsSpecialities
+     * Retrieves the list of available doctor specialties from the system.
+     *
+     * @return object The response object containing the list of doctor specialties.
+     * @throws GuzzleException
+     */
+    public function getSpecialities(): object
+    {
+        $endpoint = "/integration/enterprise/doctors/specialties";
+        return $this->call('GET', $endpoint);
+    }
+
+    /**
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorsByName
+     * Retrieves a paginated list of doctors filtered by name, patient ID, or sort type.
+     *
+     * @param int $page The page number for the paginated results.
+     * @param string|null $name Optional. The name of the doctor to filter results.
+     * @param int|null $patientId Optional. The ID of the patient to filter results based on association.
+     * @param string|null $sortType Optional. The sorting type for the results. Allowed values are "NAME" or "NEAREST_DATE".
+     * @return object The response object containing the list of doctors.
+     * @throws GuzzleException
+     */
+    public function getByName(int $page, ?string $name = null, ?int $patientId = null, ?string $sortType = null): object
+    {
+        $params = array_filter([
+            'name' => $name,
+            'patientId' => $patientId,
+            'sortType' => !in_array($sortType, ["NAME", "NEAREST_DATE"]) ? null : $sortType,
+        ]);
+        if (!empty($params)) $params = http_build_query($params);
+        $endpoint = "/integration/enterprise/doctors/name/$page?$params";
+        return $this->call('GET', $endpoint);
     }
 
     /**
-     * @param string|null $nisNumber
-     * @return Doctor
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorsBySpecialtyByName
+     * Retrieves a list of doctors based on specialty and additional optional criteria.
+     *
+     * @param int $specialtyId The ID of the specialty to filter doctors by.
+     * @param int $page The page number for pagination.
+     * @param string|null $name Optional. The name or partial name of the doctor to search for.
+     * @param int|null $patientId Optional. The ID of the patient to filter the doctors by.
+     * @param string|null $sortType Optional. The sorting type for the results. Valid values are "NAME" and "NEAREST_DATE".
+     * @return object The response object containing the list of doctors and related data.
+     * @throws GuzzleException
      */
-    public function setNisNumber(?string $nisNumber): Doctor
+    public function getBySpecialtyByName(int $specialtyId, int $page, ?string $name = null, ?int $patientId = null, ?string $sortType = null): object
     {
-        $this->nisNumber = $nisNumber;
-        return $this;
+        $params = array_filter([
+            'name' => $name,
+            'patientId' => $patientId,
+            'sortType' => !in_array($sortType, ["NAME", "NEAREST_DATE"]) ? null : $sortType,
+        ]);
+        if (!empty($params)) $params = http_build_query($params);
+        $endpoint = "/integration/enterprise/doctors/specialty/$specialtyId/$page?$params";
+        return $this->call('GET', $endpoint);
     }
 
     /**
-     * @return int|null
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorsAvailableSchedule
+     * Retrieves the available schedule for a specified doctor within a certain timeframe.
+     *
+     * @param int $doctorId The unique identifier of the doctor whose schedule is being retrieved.
+     * @param string $startDate The start date from which to check available schedules, formatted as YYYY-MM-DD.
+     * @return object The response object containing the available schedule details.
+     * @throws GuzzleException
      */
-    public function getIdCbo(): ?int
-    {
-        return $this->idCbo;
-    }
+    public function getAvailableSchedule(int $doctorId, string $startDate): object
+{
+    $params = array_filter(['startDate' => $startDate]);
+    if (!empty($params)) $params = http_build_query($params);
+    $endpoint = "/integration/enterprise/doctors/1036/schedule/available?$params";
+    return $this->call('GET', $endpoint);
+}
 
     /**
-     * @param int|null $idCbo
-     * @return Doctor
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorReport
+     * Retrieves a report of doctors based on their status.
+     *
+     * @param bool $active Indicates whether to include active doctors in the report.
+     * @param bool $inactive Indicates whether to include inactive doctors in the report.
+     * @param bool $blocked Indicates whether to include blocked doctors in the report.
+     * @param int|null $page The page number for pagination, null for no pagination.
+     * @return object The response object containing the requested report data.
+     * @throws GuzzleException
      */
-    public function setIdCbo(?int $idCbo): Doctor
+    public function getReport(bool $active, bool $inactive, bool $blocked, ?int $page = null): object
     {
-        $this->idCbo = $idCbo;
-        return $this;
+        $params = array_filter([
+            'active' => $active,
+            'inactive' => $inactive,
+            'blocked' => $blocked,
+            'page' => $page
+        ]);
+        if (!empty($params)) $params = http_build_query($params);
+        $endpoint = "/integration/enterprise/doctors/report?$params";
+        return $this->call('GET', $endpoint);
     }
 
     /**
-     * @return bool
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2DoctorBlockById
+     * Blocks a doctor in the system by their unique identifier.
+     *
+     * @param int $id The unique identifier of the doctor to be blocked.
+     * @return object The response object containing the result of the operation.
+     * @throws GuzzleException
      */
-    public function isBlockAppointmentQueue(): bool
+    public function blockById(int $id): object
     {
-        return $this->blockAppointmentQueue;
+        $endpoint = "/integration/enterprise/v2/doctors/$id/block";
+        return $this->call('POST', $endpoint);
     }
 
     /**
-     * @param bool $blockAppointmentQueue
-     * @return Doctor
+     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2DoctorUnblockById
+     * Unblocks a doctor using their unique identifier.
+     *
+     * @param int $id The unique identifier of the doctor to be unblocked.
+     * @return object The response object from the unblock operation.
+     * @throws GuzzleException
      */
-    public function setBlockAppointmentQueue(bool $blockAppointmentQueue): Doctor
+    public function unblockById(int $id): object
     {
-        $this->blockAppointmentQueue = $blockAppointmentQueue;
-        return $this;
+        $endpoint = "/integration/enterprise/v2/doctors/$id/unblock";
+        return $this->call('POST', $endpoint);
     }
 
-
-    function toArray(): array
-    {
-        return [];
-    }
 }
