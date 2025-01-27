@@ -8,31 +8,30 @@ Respeitando as nomenclaturas de parâmetros e estrutura de retorno (response) da
 Os arquivos estão organizados por diretórios conforme abaixo:
 
 ```
-+-- src
-|   +-- Context
-|       +-- Appointment.php
-|       +-- AppointmentQueue.php
-|       +-- APS.php
-|       +-- Clinic.php
-|       +-- CreditCard.php
-|       +-- Doctor.php
-|       +-- Domain.php
-|       +-- Enota.php
-|       +-- HealthcareProfessional.php
-|       +-- NPS.php
-|       +-- Patient.php
-|       +-- Prices.php
-|       +-- ProfessionalCalendar.php
-|       +-- Psychologist.php
-|   +-- Helpers/
-|       +-- Enum.php
-|       +-- HTTPClient.php
-|   +-- Types/
-|       +-- EvaluationRequest.php
-|       +-- PatientAddressRequest.php
-|       +-- PatientFamilyGroupRequest.php
-|       +-- PatientRequest.php
-|       +-- ProfessionalRequest.php
+|+-- Context
+|    +-- Appointment.php
+|    +-- AppointmentQueue.php
+|    +-- APS.php
+|    +-- Clinic.php
+|    +-- CreditCard.php
+|    +-- Doctor.php
+|    +-- Domain.php
+|    +-- Enota.php
+|    +-- HealthcareProfessional.php
+|    +-- NPS.php
+|    +-- Patient.php
+|    +-- Prices.php
+|    +-- ProfessionalCalendar.php
+|    +-- Psychologist.php
+|+-- Helpers
+|    +-- Enum.php
+|    +-- HTTPClient.php
+|+-- Types
+|    +-- EvaluationRequest.php
+|    +-- PatientAddressRequest.php
+|    +-- PatientFamilyGroupRequest.php
+|    +-- PatientRequest.php
+|    +-- ProfessionalRequest.php
 +--Configuration.php
 ```
 
@@ -56,6 +55,19 @@ Utilizando o arquivo ```.htaccess``` da sua aplicação (caso não possua, crie)
 ```
 CONEXA_ENVIRONMENT [development | production]
 CONEXA_TOKEN [token da API]
+```
+
+### Utilizando a classe Configuration
+Também é possível configurar a comunicação com a API através da classe ``Configuration``.
+```
+use O4l3x4ndr3\SdkConexa\Configuration;
+use O4l3x4ndr3\SdkConexa\Context\Patient;
+
+# Definindo o token e ambiente... 
+$config = new Configuration('***94856b***', 'development');
+
+# Instanciando uma classe de contexto
+$patient = new Patient($config);
 ```
 
 Por padrão a SDK utiliza o valor para ambiente de desenvolvimento [```development```].

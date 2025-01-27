@@ -16,7 +16,7 @@ class HTTPClient
     /**
      * @param Configuration|null $config
      */
-    public function __construct(Configuration $config = null)
+    public function __construct(?Configuration $config = null)
     {
         $this->config = $config ?? new Configuration();
         $this->token = $this->config->getToken();

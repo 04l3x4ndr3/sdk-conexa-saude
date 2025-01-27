@@ -26,7 +26,7 @@ class Configuration
     private ?string $token;
     private ?array $httpHeader;
 
-    public function __construct(string $token = null, ?string $environment = null)
+    public function __construct(?string $token = null, ?string $environment = null)
     {
         $this->environment = $environment ?? $_SERVER['CONEXA_ENVIRONMENT'] ?? self::ENV_DEVELOPMENT;
         $this->token = $token ?? $_SERVER['CONEXA_TOKEN'];
@@ -45,9 +45,10 @@ class Configuration
      * @param string $token
      * @return void
      */
-    public function setToken(string $token): void
+    public function setToken(string $token): Configuration
     {
         $this->token = $token;
+        return $this;
     }
 
     /**
@@ -63,9 +64,10 @@ class Configuration
      *
      * @return void
      */
-    public function setEnvironment(string $environment): void
+    public function setEnvironment(string $environment): Configuration
     {
         $this->environment = $environment;
+        return $this;
     }
 
     /**
@@ -79,9 +81,10 @@ class Configuration
     /**
      * @param array $httpHeader
      */
-    public function setHttpHeader(array $httpHeader): void
+    public function setHttpHeader(array $httpHeader): Configuration
     {
         $this->httpHeader = $httpHeader;
+        return $this;
     }
 
     /**
@@ -89,12 +92,12 @@ class Configuration
      *
      * @return string
      */
-    public function getUrl(string $context = 'default'): string
+    public function getUrl(?string $context = 'default'): string
     {
         if ($this->getEnvironment() === self::ENV_PRODUCTION) {
-            return $this->URL_PRODUCTION[$context];
+            return $this->URL_PRODUCTION[$context ?? 'default'];
         }
 
-        return $this->URL_DEVELOPMENT[$context];
+        return $this->URL_DEVELOPMENT[$context ?? 'default'];
     }
 }
