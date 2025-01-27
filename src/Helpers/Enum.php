@@ -65,7 +65,7 @@ enum GenreType: string
  * Enum representing the official acronyms of the federative units in Brazil.
  * Each case corresponds to the two-letter abbreviation of a Brazilian state or the Federal District.
  */
-enum UfAcronym: string
+enum UFType: string
 {
     case RO = "RO";
     case AC = "AC";
@@ -96,7 +96,11 @@ enum UfAcronym: string
     case DF = "DF";
 }
 
-enum WeekDay: string
+/**
+ * Represents the days of the week.
+ * Each case corresponds to a specific day, typically used in contexts requiring day names in Portuguese.
+ */
+enum WeekDayType: string
 {
     case SEGUNDA = "SEGUNDA";
     case TERCA = "TERCA";
@@ -105,4 +109,23 @@ enum WeekDay: string
     case SEXTA = "SEXTA";
     case SABADO = "SABADO";
     case DOMINGO = "DOMINGO";
+}
+
+/**
+ * Represents different types of kinship relationships.
+ * Each case denotes a specific familial or relational bond.
+ */
+enum KinshipType: string
+{
+    case PAI = "PAI";
+    case MAE = "MAE";
+    case CONJUGE = "CONJUGE";
+    case FILHO = "FILHO";
+    case ENTEADO = "ENTEADO";
+    case COMPANHEIRO = "COMPANHEIRO";
+    case AVOS = "AVOS";
+    case BISAVOS = "BISAVOS";
+    case IRMAOS = "IRMAOS";
+    case TIOS = "TIOS";
+    case OUTROS = "OUTROS";
 }
