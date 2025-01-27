@@ -5,6 +5,7 @@ namespace O4l3x4ndr3\SdkConexa\Context;
 use GuzzleHttp\Exception\GuzzleException;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
+use O4l3x4ndr3\SdkConexa\Types\ProfessionalRequest;
 use ProfessionalType;
 
 class HealthcareProfessional extends HTTPClient
@@ -18,11 +19,11 @@ class HealthcareProfessional extends HTTPClient
      * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/healthcareProfessionalInsert
      * Inserts a healthcare professional into the system by sending the required data to the specified endpoint.
      *
-     * @param \O4l3x4ndr3\SdkConexa\Types\HealthcareProfessional $healthcareProfessional Object containing healthcare professional data to be inserted.
+     * @param ProfessionalRequest $healthcareProfessional Object containing healthcare professional data to be inserted.
      * @return object Response object returned from the API after the insertion is performed.
      * @throws GuzzleException
      */
-    public function insert(\O4l3x4ndr3\SdkConexa\Types\HealthcareProfessional $healthcareProfessional): object
+    public function insert(ProfessionalRequest $healthcareProfessional): object
     {
         $endpoint = 'integration/enterprise/healthcare-professionals';
         $data = $healthcareProfessional->toArray();

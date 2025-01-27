@@ -28,13 +28,11 @@ Os arquivos estão organizados por diretórios conforme abaixo:
 |       +-- Enum.php
 |       +-- HTTPClient.php
 |   +-- Types/
-|       +-- Doctor.php
-|       +-- Evaluation.php
-|       +-- HealthcareProfessional.php
+|       +-- EvaluationRequest.php
 |       +-- PatientAddressRequest.php
 |       +-- PatientFamilyGroupRequest.php
 |       +-- PatientRequest.php
-|       +-- ProfessionalCommon.php
+|       +-- ProfessionalRequest.php
 +--Configuration.php
 ```
 
@@ -49,7 +47,7 @@ encontrar
 em execução (Produção ou Desenvolvimento).
 
 Para definir o ambiente em que a aplicação esta sendo executada, inclua defina **variáveis de ambientes no servidor** ou
-declare-as em um arquivo _**.htaccess**_.
+declare-as no arquivo _**.htaccess**_.
 
 ### Utilizando arquivo .htaccess
 

@@ -5,6 +5,8 @@ namespace O4l3x4ndr3\SdkConexa\Context;
 use GuzzleHttp\Exception\GuzzleException;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
+use O4l3x4ndr3\SdkConexa\Types\DoctorRequest;
+use O4l3x4ndr3\SdkConexa\Types\ProfessionalRequest;
 
 class Doctor extends HTTPClient
 {
@@ -38,11 +40,11 @@ class Doctor extends HTTPClient
      * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/doctorInsertion
      * Inserts a doctor record into the system.
      *
-     * @param \O4l3x4ndr3\SdkConexa\Types\Doctor $Doctor The doctor object to be inserted, represented as a Doctor type.
+     * @param ProfessionalRequest $Doctor The doctor object to be inserted, represented as a Doctor type.
      * @return object The response object containing the result of the operation.
      * @throws GuzzleException
      */
-    public function insert(\O4l3x4ndr3\SdkConexa\Types\Doctor $Doctor): object
+    public function insert(ProfessionalRequest $Doctor): object
     {
         $endpoint = "/integration/enterprise/doctors";
         $data = $Doctor->toArray();

@@ -5,7 +5,7 @@ namespace O4l3x4ndr3\SdkConexa\Context;
 use GuzzleHttp\Exception\GuzzleException;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
-use O4l3x4ndr3\SdkConexa\Types\Evaluation;
+use O4l3x4ndr3\SdkConexa\Types\EvaluationRequest;
 
 class NPS extends HTTPClient
 {
@@ -20,12 +20,12 @@ class NPS extends HTTPClient
      * Saves the NPS evaluation data for a specific appointment.
      *
      * @param int $appointmentId The identifier of the appointment.
-     * @param Evaluation $professional The evaluation details regarding the professional.
-     * @param Evaluation $platform The evaluation details regarding the platform.
+     * @param EvaluationRequest $professional The evaluation details regarding the professional.
+     * @param EvaluationRequest $platform The evaluation details regarding the platform.
      * @return object The response object from the API call.
      * @throws GuzzleException
      */
-    public function save(int $appointmentId, Evaluation $professional, Evaluation $platform): object
+    public function save(int $appointmentId, EvaluationRequest $professional, EvaluationRequest $platform): object
     {
         $data = array_filter([
             'appointmentId' => $appointmentId,

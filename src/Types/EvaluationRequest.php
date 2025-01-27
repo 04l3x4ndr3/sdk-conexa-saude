@@ -2,7 +2,7 @@
 
 namespace O4l3x4ndr3\SdkConexa\Types;
 
-class Evaluation
+class EvaluationRequest
 {
     public string $evaluationType;
     public ?string $evaluation;
@@ -30,7 +30,7 @@ class Evaluation
         return $this->evaluationType;
     }
 
-    public function setEvaluationType(string $evaluationType): Evaluation
+    public function setEvaluationType(string $evaluationType): EvaluationRequest
     {
         $this->evaluationType = $evaluationType;
         return $this;
@@ -41,7 +41,7 @@ class Evaluation
         return $this->evaluation;
     }
 
-    public function setEvaluation(?string $evaluation): Evaluation
+    public function setEvaluation(?string $evaluation): EvaluationRequest
     {
         $this->evaluation = $evaluation;
         return $this;
@@ -52,7 +52,7 @@ class Evaluation
         return $this->details;
     }
 
-    public function setDetails(?array $details): Evaluation
+    public function setDetails(?array $details): EvaluationRequest
     {
         $this->details = $details;
         return $this;
@@ -63,7 +63,7 @@ class Evaluation
         return $this->nps;
     }
 
-    public function setNps(?int $nps): Evaluation
+    public function setNps(?int $nps): EvaluationRequest
     {
         $this->nps = $nps;
         return $this;
@@ -74,7 +74,7 @@ class Evaluation
         return $this->comment;
     }
 
-    public function setComment(?string $comment): Evaluation
+    public function setComment(?string $comment): EvaluationRequest
     {
         $this->comment = $comment;
         return $this;

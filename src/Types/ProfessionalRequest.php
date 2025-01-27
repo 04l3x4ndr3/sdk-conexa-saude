@@ -4,7 +4,7 @@ namespace O4l3x4ndr3\SdkConexa\Types;
 
 use GenreType;
 
-class ProfessionalCommon
+class ProfessionalRequest
 {
 
     private int $id;
@@ -13,7 +13,7 @@ class ProfessionalCommon
     private string $mail;
     private string $cellphone;
     private int $specialtyId;
-    private ?GenreType $sex;
+    private string $sex;
     private bool $isBrazilian;
     private string $cpf;
     private string $crm;
@@ -51,18 +51,18 @@ class ProfessionalCommon
     private bool $blockAppointmentQueue;
 
     public function __construct(
-        int       $id,
-        string    $name,
-        string    $lastname,
-        string    $mail,
-        string    $cellphone,
-        int       $specialtyId,
-        GenreType $sex,
-        bool      $isBrazilian,
-        string    $cpf,
-        string    $crm,
-        string    $crmUf,
-        string    $dateBirth
+        int    $id,
+        string $name,
+        string $lastname,
+        string $mail,
+        string $cellphone,
+        int    $specialtyId,
+        string $sex,
+        bool   $isBrazilian,
+        string $cpf,
+        string $crm,
+        string $crmUf,
+        string $dateBirth
     )
     {
         $this->id = $id;
@@ -119,9 +119,9 @@ class ProfessionalCommon
 
     /**
      * @param int $id
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setId(int $id): Doctor
+    public function setId(int $id): ProfessionalRequest
     {
         $this->id = $id;
         return $this;
@@ -137,9 +137,9 @@ class ProfessionalCommon
 
     /**
      * @param string $name
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setName(string $name): Doctor
+    public function setName(string $name): ProfessionalRequest
     {
         $this->name = $name;
         return $this;
@@ -155,9 +155,9 @@ class ProfessionalCommon
 
     /**
      * @param string $lastname
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setLastname(string $lastname): Doctor
+    public function setLastname(string $lastname): ProfessionalRequest
     {
         $this->lastname = $lastname;
         return $this;
@@ -173,9 +173,9 @@ class ProfessionalCommon
 
     /**
      * @param string $mail
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setMail(string $mail): Doctor
+    public function setMail(string $mail): ProfessionalRequest
     {
         $this->mail = $mail;
         return $this;
@@ -191,9 +191,9 @@ class ProfessionalCommon
 
     /**
      * @param string $cellphone
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setCellphone(string $cellphone): Doctor
+    public function setCellphone(string $cellphone): ProfessionalRequest
     {
         $this->cellphone = $cellphone;
         return $this;
@@ -209,29 +209,29 @@ class ProfessionalCommon
 
     /**
      * @param int $specialtyId
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setSpecialtyId(int $specialtyId): Doctor
+    public function setSpecialtyId(int $specialtyId): ProfessionalRequest
     {
         $this->specialtyId = $specialtyId;
         return $this;
     }
 
     /**
-     * @return GenreType
+     * @return string
      */
-    public function getSex(): GenreType
+    public function getSex(): string
     {
         return $this->sex;
     }
 
     /**
      * @param GenreType $sex
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setSex(GenreType $sex): Doctor
+    public function setSex(GenreType $sex): ProfessionalRequest
     {
-        $this->sex = $sex;
+        $this->sex = $sex->value;
         return $this;
     }
 
@@ -245,9 +245,9 @@ class ProfessionalCommon
 
     /**
      * @param bool $isBrazilian
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIsBrazilian(bool $isBrazilian): Doctor
+    public function setIsBrazilian(bool $isBrazilian): ProfessionalRequest
     {
         $this->isBrazilian = $isBrazilian;
         return $this;
@@ -263,9 +263,9 @@ class ProfessionalCommon
 
     /**
      * @param string $cpf
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setCpf(string $cpf): Doctor
+    public function setCpf(string $cpf): ProfessionalRequest
     {
         $this->cpf = $cpf;
         return $this;
@@ -281,9 +281,9 @@ class ProfessionalCommon
 
     /**
      * @param string $crm
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setCrm(string $crm): Doctor
+    public function setCrm(string $crm): ProfessionalRequest
     {
         $this->crm = $crm;
         return $this;
@@ -299,9 +299,9 @@ class ProfessionalCommon
 
     /**
      * @param string $crmUf
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setCrmUf(string $crmUf): Doctor
+    public function setCrmUf(string $crmUf): ProfessionalRequest
     {
         $this->crmUf = $crmUf;
         return $this;
@@ -317,9 +317,9 @@ class ProfessionalCommon
 
     /**
      * @param string $dateBirth
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setDateBirth(string $dateBirth): Doctor
+    public function setDateBirth(string $dateBirth): ProfessionalRequest
     {
         $this->dateBirth = $dateBirth;
         return $this;
@@ -335,9 +335,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $cep
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setCep(?string $cep): Doctor
+    public function setCep(?string $cep): ProfessionalRequest
     {
         $this->cep = $cep;
         return $this;
@@ -353,9 +353,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $city
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setCity(?string $city): Doctor
+    public function setCity(?string $city): ProfessionalRequest
     {
         $this->city = $city;
         return $this;
@@ -371,9 +371,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $uf
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setUf(?string $uf): Doctor
+    public function setUf(?string $uf): ProfessionalRequest
     {
         $this->uf = $uf;
         return $this;
@@ -389,9 +389,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $neighborhood
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setNeighborhood(?string $neighborhood): Doctor
+    public function setNeighborhood(?string $neighborhood): ProfessionalRequest
     {
         $this->neighborhood = $neighborhood;
         return $this;
@@ -407,9 +407,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $address
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setAddress(?string $address): Doctor
+    public function setAddress(?string $address): ProfessionalRequest
     {
         $this->address = $address;
         return $this;
@@ -425,9 +425,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $complement
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setComplement(?string $complement): Doctor
+    public function setComplement(?string $complement): ProfessionalRequest
     {
         $this->complement = $complement;
         return $this;
@@ -443,9 +443,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $socialName
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setSocialName(?string $socialName): Doctor
+    public function setSocialName(?string $socialName): ProfessionalRequest
     {
         $this->socialName = $socialName;
         return $this;
@@ -461,9 +461,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $motherName
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setMotherName(?string $motherName): Doctor
+    public function setMotherName(?string $motherName): ProfessionalRequest
     {
         $this->motherName = $motherName;
         return $this;
@@ -479,9 +479,9 @@ class ProfessionalCommon
 
     /**
      * @param bool|null $unknowMother
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setUnknowMother(?bool $unknowMother): Doctor
+    public function setUnknowMother(?bool $unknowMother): ProfessionalRequest
     {
         $this->unknowMother = $unknowMother;
         return $this;
@@ -497,9 +497,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idGender
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdGender(?int $idGender): Doctor
+    public function setIdGender(?int $idGender): ProfessionalRequest
     {
         $this->idGender = $idGender;
         return $this;
@@ -515,9 +515,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idRaceColor
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdRaceColor(?int $idRaceColor): Doctor
+    public function setIdRaceColor(?int $idRaceColor): ProfessionalRequest
     {
         $this->idRaceColor = $idRaceColor;
         return $this;
@@ -533,9 +533,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idNationality
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdNationality(?int $idNationality): Doctor
+    public function setIdNationality(?int $idNationality): ProfessionalRequest
     {
         $this->idNationality = $idNationality;
         return $this;
@@ -551,9 +551,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $birthCounty
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setBirthCounty(?string $birthCounty): Doctor
+    public function setBirthCounty(?string $birthCounty): ProfessionalRequest
     {
         $this->birthCounty = $birthCounty;
         return $this;
@@ -569,9 +569,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idBirthUF
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdBirthUF(?int $idBirthUF): Doctor
+    public function setIdBirthUF(?int $idBirthUF): ProfessionalRequest
     {
         $this->idBirthUF = $idBirthUF;
         return $this;
@@ -587,9 +587,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $naturalizationDate
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setNaturalizationDate(?string $naturalizationDate): Doctor
+    public function setNaturalizationDate(?string $naturalizationDate): ProfessionalRequest
     {
         $this->naturalizationDate = $naturalizationDate;
         return $this;
@@ -605,9 +605,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idBirthCountry
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdBirthCountry(?int $idBirthCountry): Doctor
+    public function setIdBirthCountry(?int $idBirthCountry): ProfessionalRequest
     {
         $this->idBirthCountry = $idBirthCountry;
         return $this;
@@ -623,9 +623,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $passport
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setPassport(?string $passport): Doctor
+    public function setPassport(?string $passport): ProfessionalRequest
     {
         $this->passport = $passport;
         return $this;
@@ -641,9 +641,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idPassportIssuingCountry
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdPassportIssuingCountry(?int $idPassportIssuingCountry): Doctor
+    public function setIdPassportIssuingCountry(?int $idPassportIssuingCountry): ProfessionalRequest
     {
         $this->idPassportIssuingCountry = $idPassportIssuingCountry;
         return $this;
@@ -659,9 +659,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $passportIssuingDate
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setPassportIssuingDate(?string $passportIssuingDate): Doctor
+    public function setPassportIssuingDate(?string $passportIssuingDate): ProfessionalRequest
     {
         $this->passportIssuingDate = $passportIssuingDate;
         return $this;
@@ -677,9 +677,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $passportExpiryDate
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setPassportExpiryDate(?string $passportExpiryDate): Doctor
+    public function setPassportExpiryDate(?string $passportExpiryDate): ProfessionalRequest
     {
         $this->passportExpiryDate = $passportExpiryDate;
         return $this;
@@ -695,9 +695,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $residencialPhone
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setResidencialPhone(?string $residencialPhone): Doctor
+    public function setResidencialPhone(?string $residencialPhone): ProfessionalRequest
     {
         $this->residencialPhone = $residencialPhone;
         return $this;
@@ -713,9 +713,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idAddressCountry
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdAddressCountry(?int $idAddressCountry): Doctor
+    public function setIdAddressCountry(?int $idAddressCountry): ProfessionalRequest
     {
         $this->idAddressCountry = $idAddressCountry;
         return $this;
@@ -731,9 +731,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $cns
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setCns(?string $cns): Doctor
+    public function setCns(?string $cns): ProfessionalRequest
     {
         $this->cns = $cns;
         return $this;
@@ -749,9 +749,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $identity
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdentity(?string $identity): Doctor
+    public function setIdentity(?string $identity): ProfessionalRequest
     {
         $this->identity = $identity;
         return $this;
@@ -767,9 +767,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idIdentityUF
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdIdentityUF(?int $idIdentityUF): Doctor
+    public function setIdIdentityUF(?int $idIdentityUF): ProfessionalRequest
     {
         $this->idIdentityUF = $idIdentityUF;
         return $this;
@@ -785,9 +785,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $identityIssuingDate
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdentityIssuingDate(?string $identityIssuingDate): Doctor
+    public function setIdentityIssuingDate(?string $identityIssuingDate): ProfessionalRequest
     {
         $this->identityIssuingDate = $identityIssuingDate;
         return $this;
@@ -803,9 +803,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $identityIssuingBody
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdentityIssuingBody(?string $identityIssuingBody): Doctor
+    public function setIdentityIssuingBody(?string $identityIssuingBody): ProfessionalRequest
     {
         $this->identityIssuingBody = $identityIssuingBody;
         return $this;
@@ -821,9 +821,9 @@ class ProfessionalCommon
 
     /**
      * @param string|null $nisNumber
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setNisNumber(?string $nisNumber): Doctor
+    public function setNisNumber(?string $nisNumber): ProfessionalRequest
     {
         $this->nisNumber = $nisNumber;
         return $this;
@@ -839,9 +839,9 @@ class ProfessionalCommon
 
     /**
      * @param int|null $idCbo
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setIdCbo(?int $idCbo): Doctor
+    public function setIdCbo(?int $idCbo): ProfessionalRequest
     {
         $this->idCbo = $idCbo;
         return $this;
@@ -857,9 +857,9 @@ class ProfessionalCommon
 
     /**
      * @param bool $blockAppointmentQueue
-     * @return Doctor
+     * @return ProfessionalRequest
      */
-    public function setBlockAppointmentQueue(bool $blockAppointmentQueue): Doctor
+    public function setBlockAppointmentQueue(bool $blockAppointmentQueue): ProfessionalRequest
     {
         $this->blockAppointmentQueue = $blockAppointmentQueue;
         return $this;
