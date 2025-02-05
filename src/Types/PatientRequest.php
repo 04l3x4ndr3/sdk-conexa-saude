@@ -66,7 +66,7 @@ class PatientRequest
      * @param string|null $healthCardNumber
      * @param string|null $registration
      */
-    public function __construct(?string $name, ?string $mail, ?string $cpf, ?string $healthCardNumber, ?string $registration)
+    public function __construct(string $name, string $mail, ?string $cpf = null, ?string $healthCardNumber = null, ?string $registration = null)
     {
         $this->name = $name;
         $this->mail = $mail;
@@ -1100,7 +1100,7 @@ class PatientRequest
     public function toArray(): array
     {
         $vars = get_object_vars($this);
-        $vars['address'] = $this->address->toArray();
+        $vars['address'] = !empty($this->address) ? $this->address->toArray() : null;
         return $vars;
     }
 }

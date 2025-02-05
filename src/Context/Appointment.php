@@ -134,7 +134,7 @@ class Appointment extends HTTPClient
      * @return object An object containing the result of the immediate appointment creation.
      * @throws GuzzleException
      */
-    public function createImmediate(int $patientId, array $appointmentDetails): object
+    public function createImmediate(int $patientId, array $appointmentDetails = []): object
     {
         $defaultData = array_merge([
             "patientId" => $patientId,
