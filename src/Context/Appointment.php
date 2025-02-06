@@ -17,7 +17,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * @links @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentById
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentById
      * Retrieves an appointment by its ID and professional type.
      *
      * @param int $id The unique identifier of the appointment.
