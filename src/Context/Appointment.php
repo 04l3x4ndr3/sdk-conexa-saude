@@ -358,19 +358,19 @@ class Appointment extends HTTPClient
         return $this->call('POST', $endpoint);
     }
 
+
     /**
-     * Cancels a scheduled appointment by providing relevant details such as appointment ID, patient ID, and protocol ID.
-     * Additionally, it determines whether to notify the clinic of this cancellation.
-     * @link https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentConcludeById
-     * @param int $appointmentId The ID of the scheduled appointment to be canceled.
-     * @param int $patientId The ID of the patient whose appointment is being canceled.
-     * @param string|null $protocolId The protocol ID associated with the appointment, if available.
+     * Cancels a scheduled appointment for a specific patient.
+     * @link https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentScheduledCancel
+     * @param int $appointmentId The ID of the appointment to be canceled.
+     * @param int $patientId The ID of the patient associated with the appointment.
+     * @param string|null $protocolId The protocol ID related to the cancellation, if available.
      * @param string $professionalType The type of professional involved in the appointment.
-     * @param bool $notifyClinic Indicates whether the clinic should be notified of the cancellation. Defaults to false.
-     * @return object An object containing the result of the appointment cancellation operation.
+     * @param bool $notifyClinic Indicates whether the clinic should be notified about the cancellation.
+     * @return object An object containing the result of the scheduled appointment cancellation.
      * @throws GuzzleException
      */
-    public function cancelScheduled(int $appointmentId, int $patientId, ?string $protocolId, string $professionalType, bool $notifyClinic = false): object
+    public function scheduledCancel(int $appointmentId, int $patientId, ?string $protocolId, string $professionalType, bool $notifyClinic = false): object
     {
         $params = http_build_query(['professionalType' => $professionalType]);
         $data = array_filter([
