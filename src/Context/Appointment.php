@@ -7,7 +7,6 @@ use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use O4l3x4ndr3\SdkConexa\Types\PatientRequest;
 use O4l3x4ndr3\SdkConexa\Types\ProfessionalRequest;
-use ProfessionalType;
 
 class Appointment extends HTTPClient
 {
