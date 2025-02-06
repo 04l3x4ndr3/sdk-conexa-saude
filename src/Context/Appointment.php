@@ -360,23 +360,23 @@ class Appointment extends HTTPClient
 
 
     /**
-     * Cancels a scheduled appointment for a specific patient.
+     * Cancels a scheduled appointment based on the provided parameters.
      * @link https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentScheduledCancel
-     * @param int $appointmentId The ID of the appointment to be canceled.
-     * @param int $patientId The ID of the patient associated with the appointment.
-     * @param string|null $protocolId The protocol ID related to the cancellation, if available.
-     * @param string $professionalType The type of professional involved in the appointment.
+     * @param string $professionalType The type of professional associated with the scheduled appointment.
+     * @param int|null $appointmentId The ID of the appointment to be canceled. Optional.
+     * @param int|null $patientId The ID of the patient associated with the appointment. Optional.
+     * @param string|null $protocolId The protocol ID related to the appointment. Optional.
      * @param bool $notifyClinic Indicates whether the clinic should be notified about the cancellation.
-     * @return object An object containing the result of the scheduled appointment cancellation.
+     * @return object An object containing the result of the scheduling cancellation operation.
      * @throws GuzzleException
      */
-    public function scheduledCancel(int $appointmentId, int $patientId, ?string $protocolId, string $professionalType, bool $notifyClinic = false): object
+    public function scheduledCancel(string $professionalType, ?int $appointmentId = null, ?int $patientId = null, ?string $protocolId = null, bool $notifyClinic = false): object
     {
         $params = http_build_query(['professionalType' => $professionalType]);
         $data = array_filter([
             'appointmentId' => $appointmentId,
             'patientId' => $patientId,
-            'protocolId' => $protocolId ?? null
+            'protocolId' => $protocolId
         ]);
         $endpoint = "/integration/enterprise/appointment/conclude?$params";
         $extraHeaders = [
