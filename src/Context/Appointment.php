@@ -5,6 +5,8 @@ namespace O4l3x4ndr3\SdkConexa\Context;
 use GuzzleHttp\Exception\GuzzleException;
 use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
 use O4l3x4ndr3\SdkConexa\Configuration;
+use O4l3x4ndr3\SdkConexa\Types\PatientRequest;
+use O4l3x4ndr3\SdkConexa\Types\ProfessionalRequest;
 use ProfessionalType;
 
 class Appointment extends HTTPClient
@@ -16,23 +18,23 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentById
+     * @links @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentById
      * Retrieves an appointment by its ID and professional type.
      *
      * @param int $id The unique identifier of the appointment.
-     * @param ProfessionalType $professionalType The professional type associated with the appointment.
+     * @param string $professionalType The professional type associated with the appointment.
      * @return object The appointment details as an object.
      * @throws GuzzleException
      */
-    public function getById(int $id, ProfessionalType $professionalType): object
+    public function getById(int $id, string $professionalType): object
     {
-        $params = http_build_query(['ProfessionalType' => $professionalType->value]);
+        $params = http_build_query(['ProfessionalType' => $professionalType]);
         $endpoint = "/integration/enterprise/v2/appointment/$id?$params";
         return $this->call('GET', $endpoint);
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentUrlById
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentUrlById
      * Retrieves the URL associated with a specific appointment.
      *
      * @param int $id The ID of the appointment for which the URL is being requested.
@@ -47,7 +49,7 @@ class Appointment extends HTTPClient
 
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentSaveMedicalRecord
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentSaveMedicalRecord
      * Saves the medical record associated with a specific appointment.
      *
      * @param int $id The ID of the appointment for which the medical record is being saved.
@@ -71,24 +73,24 @@ class Appointment extends HTTPClient
 
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AllAppointmentByPatientId
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AllAppointmentByPatientId
      * Retrieves last 50 appointments associated with a specific patient and filtered by professional type.
      *
      * @param int $patientId The ID of the patient whose appointments are being retrieved.
-     * @param ProfessionalType $professionalType An instance representing the type of professional (e.g., doctor, nurse) to filter the results.
+     * @param string $professionalType An instance representing the type of professional (e.g., doctor, nurse) to filter the results.
      * @return object An object containing the list of appointments for the specified patient and professional type.
      * @throws GuzzleException
      */
-    public function getAllByPatientId(int $patientId, ProfessionalType $professionalType): object
+    public function getAllByPatientId(int $patientId, string $professionalType): object
     {
-        $params = http_build_query(['ProfessionalType' => $professionalType->value]);
+        $params = http_build_query(['ProfessionalType' => $professionalType]);
         $endpoint = "/integration/enterprise/v2/appointment/all/$patientId?$params";
         return $this->call('GET', $endpoint);
     }
 
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2NextAppointmentByPatientId
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2NextAppointmentByPatientId
      * Retrieves the next PENDENTS appointment for a specific patient based on their patient ID.
      *
      * @param int $patientId The unique identifier of the patient whose next appointment is being retrieved.
@@ -102,24 +104,24 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2realizedAppointmentByPatientId
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2realizedAppointmentByPatientId
      * Retrieves the realized appointments for a specific patient by their ID, filtered by the type of professional.
      *
      * @param int $patientId The ID of the patient whose realized appointments are being retrieved.
-     * @param ProfessionalType $professionalType The type of professional to filter the appointments by.
+     * @param string $professionalType The type of professional to filter the appointments by.
      * @return object An object containing the details of the realized appointments.
      * @throws GuzzleException
      */
-    public function getRealizedByPatientId(int $patientId, ProfessionalType $professionalType): object
+    public function getRealizedByPatientId(int $patientId, string $professionalType): object
     {
-        $params = http_build_query(['ProfessionalType' => $professionalType->value]);
+        $params = http_build_query(['ProfessionalType' => $professionalType]);
         $endpoint = "/integration/enterprise/v2/appointment/realized/$patientId?$params";
         return $this->call('GET', $endpoint);
     }
 
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/createAppointmentImmediate
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/createAppointmentImmediate
      * Creates an immediate appointment for a patient with optional parameters for customization.
      *
      * @param int $patientId The ID of the patient for whom the immediate appointment is being created.
@@ -150,7 +152,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentImmediateAttachFile
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentImmediateAttachFile
      * Attaches a file immediately to a specific appointment protocol.
      *
      * @param int $idProtocol The ID of the protocol to which the file is being attached.
@@ -178,7 +180,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentAttachFile
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentAttachFile
      * Attaches a file to a specific appointment record.
      *
      * @param int $appointmentId The ID of the appointment to which the file is being attached.
@@ -206,7 +208,7 @@ class Appointment extends HTTPClient
 
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentImmediateActiveByPatientId
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentImmediateActiveByPatientId
      * Retrieves the immediate active appointment associated with a specific patient.
      *
      * @param int $patientId The ID of the patient whose immediate active appointment is being retrieved.
@@ -220,7 +222,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentImmediateCancelByPatientId
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentImmediateCancelByPatientId
      * Cancels an immediate appointment associated with a specific patient ID.
      *
      * @param int $patientId The ID of the patient whose immediate appointment is being canceled.
@@ -234,7 +236,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentLastCallByPatientId
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentLastCallByPatientId
      * Retrieves the last call information for a patient's appointment.
      *
      * @param int $patientId The ID of the patient whose last appointment call information is being retrieved.
@@ -249,7 +251,7 @@ class Appointment extends HTTPClient
 
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentOutcomes
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentOutcomes
      * Retrieves a list of appointment outcomes from the system.
      *
      * @return object An object containing the list of appointment outcomes and their details.
@@ -262,7 +264,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentReport
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentReport
      * Retrieves a report of appointments within a specified date range.
      *
      * @param string $startDate The start date for the report in the format 'YYYY-MM-DD'.
@@ -286,7 +288,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/AppointmentScheduledWithoutSpecialistReport
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/AppointmentScheduledWithoutSpecialistReport
      * Retrieves a list of appointments scheduled without a specialist's report within a specified date range.
      *
      * @param string $startDate The start date of the range (format: YYYY-MM-DD) to filter appointments.
@@ -309,7 +311,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentSymptoms
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentSymptoms
      * Retrieves the list of symptoms associated with an appointment.
      *
      * @return object An object containing the list of symptoms.
@@ -322,7 +324,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentUrlCall
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentUrlCall
      * Retrieves the URL for a specific call associated with an appointment.
      *
      * @param int $callId The ID of the call for which the URL is being retrieved.
@@ -336,7 +338,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentConclude
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentConclude
      * Concludes an appointment with the specified outcome and optional data.
      *
      * @param int $appointmentId The ID of the appointment being concluded.
@@ -364,7 +366,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentConcludeById
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentConcludeById
      * Concludes an appointment identified by the given ID.
      *
      * @param int $id The ID of the appointment to be concluded.
@@ -378,21 +380,21 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentConcludeById
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentConcludeById
      * Cancels a scheduled appointment by providing relevant details such as appointment ID, patient ID, and protocol ID.
      * Additionally, it determines whether to notify the clinic of this cancellation.
      *
      * @param int $appointmentId The ID of the scheduled appointment to be canceled.
      * @param int $patientId The ID of the patient whose appointment is being canceled.
      * @param string|null $protocolId The protocol ID associated with the appointment, if available.
-     * @param ProfessionalType $professionalType The type of professional involved in the appointment.
+     * @param string $professionalType The type of professional involved in the appointment.
      * @param bool $notifyClinic Indicates whether the clinic should be notified of the cancellation. Defaults to false.
      * @return object An object containing the result of the appointment cancellation operation.
      * @throws GuzzleException
      */
-    public function cancelScheduled(int $appointmentId, int $patientId, ?string $protocolId, ProfessionalType $professionalType, bool $notifyClinic = false): object
+    public function cancelScheduled(int $appointmentId, int $patientId, ?string $protocolId, string $professionalType, bool $notifyClinic = false): object
     {
-        $params = http_build_query(['professionalType' => $professionalType->value]);
+        $params = http_build_query(['professionalType' => $professionalType]);
         $data = array_filter([
             'appointmentId' => $appointmentId,
             'patientId' => $patientId,
@@ -406,19 +408,19 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentScheduledComplete
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentScheduledComplete
      * Marks an appointment as complete by providing all relevant details.
      *
      * @param string $appointmentDate The scheduled date of the appointment in ISO-8601 format.
-     * @param Doctor $doctor An instance of the Doctor class representing the attending doctor.
-     * @param Patient $patient An instance of the Patient class representing the associated patient.
+     * @param ProfessionalRequest $doctor An instance of the Doctor class representing the attending doctor.
+     * @param PatientRequest $patient An instance of the Patient class representing the associated patient.
      * @param array $optionalData An associative array containing optional appointment-related data.
      *                      Possible keys may include "historyPhysicalExamination",
      *                      "prescription", "previousDiagnosis", "screening", and "payment".
      * @return object An object containing the result of the appointment completion operation.
      * @throws GuzzleException
      */
-    public function scheduledComplete(string $appointmentDate, Doctor $doctor, Patient $patient, array $optionalData = []): object
+    public function scheduledComplete(string $appointmentDate, ProfessionalRequest $doctor, PatientRequest $patient, array $optionalData = []): object
     {
         $data = array_filter(
             array_merge([
@@ -437,19 +439,19 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentScheduledSemiComplete
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentScheduledSemiComplete
      * Schedules a semi-complete appointment with the necessary details and optional additional data.
      *
      * @param string $doctorCpf The CPF of the doctor associated with the appointment.
      * @param string $appointmentDate The date of the appointment in the format 'YYYY-MM-DD'.
-     * @param Patient $patient An instance of the Patient class representing details of the patient.
+     * @param PatientRequest $patient An instance of the Patient class representing details of the patient.
      * @param array $optionalData An associative array containing optional data for the appointment.
      *                     Possible keys include "payment" (e.g., creditCardId), "previousDiagnosis",
      *                     "historyPhysicalExamination", "screening", and "prescription".
      * @return object An object containing the result of the scheduled semi-complete appointment operation.
      * @throws GuzzleException
      */
-    public function scheduledSemiComplete(string $doctorCpf, string $appointmentDate, Patient $patient, array $optionalData = []): object
+    public function scheduledSemiComplete(string $doctorCpf, string $appointmentDate, PatientRequest $patient, array $optionalData = []): object
     {
         $data = array_filter(
             array_merge([
@@ -469,17 +471,17 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/createAppointmentScheduledWithoutSpecialist
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/createAppointmentScheduledWithoutSpecialist
      * Schedules an appointment without specifying a specialist.
      *
      * @param int $patientId The ID of the patient for whom the appointment is being scheduled.
      * @param string $dateTimeAppointment The date and time of the appointment in a formatted string.
-     * @param array $optionalData An associative array containing optional data for the appointment.
+     * @param array|null $optionalData An associative array containing optional data for the appointment.
      *                      This may include keys such as "specialistType" and "specialtyId".
      * @return object An object containing the result of the scheduling operation.
      * @throws GuzzleException
      */
-    public function scheduledWithoutSpecialist(int $patientId, string $dateTimeAppointment, array $optionalData = []): object
+    public function scheduledWithoutSpecialist(int $patientId, string $dateTimeAppointment, ?array $optionalData = []): object
     {
         $data = array_filter(
             array_merge([
@@ -494,10 +496,9 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentScheduledSimple
      * Schedules a simple appointment for a patient with a specific doctor.
-     *
-     * @param ProfessionalType $professionalType The type of professional associated with the appointment.
+     * @links @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentScheduledSimple
+     * @param string $professionalType The type of professional associated with the appointment.
      * @param string $appointmentDate The date and time for the appointment in a valid datetime format.
      * @param int $doctorId The ID of the doctor who will conduct the appointment.
      * @param int $patientId The ID of the patient for whom the appointment is being scheduled.
@@ -507,9 +508,9 @@ class Appointment extends HTTPClient
      * @return object An object containing the result of the scheduling operation.
      * @throws GuzzleException
      */
-    public function scheduledSimple(ProfessionalType $professionalType, string $appointmentDate, int $doctorId, int $patientId, array $optionalData = []): object
+    public function scheduledSimple(string $professionalType, string $appointmentDate, int $doctorId, int $patientId, array $optionalData = []): object
     {
-        $params = http_build_query(['professionalType' => $professionalType->value]);
+        $params = http_build_query(['professionalType' => $professionalType]);
         $data = array_filter(
             array_merge([
                 'appointmentDate' => $appointmentDate,
@@ -527,7 +528,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/medicinesByName
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/medicinesByName
      * Retrieves a list of medicines based on the provided name.
      *
      * @param string $name The name or partial name of the medicine to search for.
@@ -541,7 +542,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentSpecialties
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentSpecialties
      * Retrieves the list of available specialties for appointments.
      *
      * @return object An object containing the list of specialties for appointments.
@@ -554,7 +555,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentCallReport
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentCallReport
      * Retrieves the call report for a specified date range and page number.
      *
      * @param int $page The page number to retrieve from the call report.
@@ -574,7 +575,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentPrescriptionsAmount
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/appointmentPrescriptionsAmount
      * Retrieves the amount of prescriptions associated with a specific appointment.
      *
      * @param int $appointmentID The ID of the appointment for which the prescription amount is being retrieved.
@@ -588,7 +589,7 @@ class Appointment extends HTTPClient
     }
 
     /**
-     * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentResendPrescriptions
+     * @links https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/v2AppointmentResendPrescriptions
      * Resends the prescriptions associated with a specific appointment.
      *
      * @param int $appointmentID The ID of the appointment whose prescriptions are being resent.
