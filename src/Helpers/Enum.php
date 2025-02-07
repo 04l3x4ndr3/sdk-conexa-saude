@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+namespace O4l3x4ndr3\SdkConexa\Helpers;
 
 /**
  * Enum representing different types of professionals in the medical and healthcare field.
