@@ -9,11 +9,11 @@ namespace O4l3x4ndr3\SdkConexa\Enum;
  */
 enum WeekDay: string
 {
-    case SEGUNDA = "segunda-feira";
-    case TERCA = "terça-feira";
-    case QUARTA = "quarta-feira";
-    case QUINTA = "quinta-feira";
-    case SEXTA = "sexta-feira";
-    case SABADO = "sábado";
-    case DOMINGO = "domingo";
+    case SEGUNDA = "SEGUNDA";
+    case TERCA = "TERCA";
+    case QUARTA = "QUARTA";
+    case QUINTA = "QUINTA";
+    case SEXTA = "SEXTA";
+    case SABADO = "SABADO";
+    case DOMINGO = "DOMINGO";
 }

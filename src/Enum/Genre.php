@@ -8,8 +8,8 @@ namespace O4l3x4ndr3\SdkConexa\Enum;
  */
 enum Genre: string
 {
-    case MALE = "masculino";
-    case FEMALE = "feminino";
-    case OTHERS = "outros";
-    case UNINFORMED = "não informado";
+    case MALE = 'MALE';
+    case FEMALE = 'FEMALE';
+    case OTHERS = 'OTHERS';
+    case UNINFORMED = 'UNINFORMED';
 }

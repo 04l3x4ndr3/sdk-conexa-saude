@@ -8,12 +8,12 @@ namespace O4l3x4ndr3\SdkConexa\Enum;
  */
 enum ProfessionalType: string
 {
-    case NURSE = 'enfermeiro(a)';
-    case PSYCHOLOGIST = 'psicólogo(a)';
+    case NURSE = 'NURSE';
+    case PSYCHOLOGIST = 'PSYCHOLOGIST';
     case PHYSIOTHERAPIST_AND_NURSE = 'PHYSIOTHERAPIST_AND_NURSE';
-    case PHYSIOTHERAPIST = 'psicoterapeuta';
-    case PHONOAUDIOLOGIST = 'fonoaudiologo(a)';
-    case NUTRITIONIST = 'notricionista';
-    case SOCIAL_ASSISTANT = 'assistente social';
-    case DOCTOR = 'médico(a)';
+    case PHYSIOTHERAPIST = 'PHYSIOTHERAPIST';
+    case PHONOAUDIOLOGIST = 'PHONOAUDIOLOGIST';
+    case NUTRITIONIST = 'NUTRITIONIST';
+    case SOCIAL_ASSISTANT = 'SOCIAL_ASSISTANT';
+    case DOCTOR = 'DOCTOR';
 }

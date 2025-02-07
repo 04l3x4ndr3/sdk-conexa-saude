@@ -8,6 +8,6 @@ namespace O4l3x4ndr3\SdkConexa\Enum;
  */
 enum Sibs: string
 {
-    case EXAME = "exame";
-    case OUTROS = "outros";
+    case EXAME = "EXAME";
+    case OUTROS = "OUTROS";
 }

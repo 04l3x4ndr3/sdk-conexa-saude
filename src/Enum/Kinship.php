@@ -8,15 +8,15 @@ namespace O4l3x4ndr3\SdkConexa\Enum;
  */
 enum Kinship: string
 {
-    case PAI = "pai";
-    case MAE = "mae";
-    case CONJUGE = "conjuge";
-    case FILHO = "filho";
-    case ENTEADO = "enteado";
-    case COMPANHEIRO = "companheiro";
-    case AVOS = "avós";
-    case BISAVOS = "bisavós";
-    case IRMAOS = "irmãos";
-    case TIOS = "tios";
-    case OUTROS = "outros";
+    case PAI = 'PAI';
+    case MAE = 'MAE';
+    case CONJUGE = 'CONJUGE';
+    case FILHO = 'FILHO';
+    case ENTEADO = 'ENTEADO';
+    case COMPANHEIRO = 'COMPANHEIRO';
+    case AVOS = 'AVOS';
+    case BISAVOS = 'BISAVOS';
+    case IRMAOS = 'IRMAOS';
+    case TIOS = 'TIOS';
+    case OUTROS = 'OUTROS';
 }
