@@ -374,9 +374,9 @@ class Appointment extends HTTPClient
     {
         $params = http_build_query(['professionalType' => $professionalType]);
         $data = array_filter([
-            'appointmentId' => $appointmentId,
             'patientId' => $patientId,
-            'protocolId' => $protocolId
+            'appointmentId' => !isset($protocolId) ? $appointmentId : null,
+            'protocolId' => !isset($appointmentId) ? $protocolId : null
         ]);
         $endpoint = "/integration/enterprise/appointment/conclude?$params";
         $extraHeaders = [
