@@ -5,7 +5,6 @@ namespace O4l3x4ndr3\SdkConexa\Context;
 use GuzzleHttp\Exception\GuzzleException;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
-use ProfessionalType;
 
 class AppointmentQueue extends HTTPClient
 {
@@ -23,9 +22,9 @@ class AppointmentQueue extends HTTPClient
      * @return object The response containing the queue size information.
      * @throws GuzzleException
      */
-    public function getQueueSizeByProfessionalType(ProfessionalType $professionalType): object
+    public function getQueueSizeByProfessionalType(string $professionalType): object
     {
-        $params = http_build_query(['ProfessionalType' => $professionalType->value]);
+        $params = http_build_query(['ProfessionalType' => $professionalType]);
         $endpoint = "/integration/appointment-queue/size?$params";
         return $this->call('GET', $endpoint);
     }

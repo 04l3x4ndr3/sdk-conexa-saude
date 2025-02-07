@@ -5,7 +5,6 @@ namespace O4l3x4ndr3\SdkConexa\Context;
 use GuzzleHttp\Exception\GuzzleException;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
-use O4l3x4ndr3\SdkConexa\Types\DoctorRequest;
 use O4l3x4ndr3\SdkConexa\Types\ProfessionalRequest;
 
 class Doctor extends HTTPClient

@@ -6,7 +6,6 @@ use GuzzleHttp\Exception\GuzzleException;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
 use O4l3x4ndr3\SdkConexa\Types\ProfessionalRequest;
-use ProfessionalType;
 
 class HealthcareProfessional extends HTTPClient
 {
@@ -63,13 +62,13 @@ class HealthcareProfessional extends HTTPClient
      * Retrieves a healthcare professional by their unique identifier, with optional parameters for filtering.
      *
      * @param int $id The unique identifier of the healthcare professional to be retrieved.
-     * @param ProfessionalType $professionalType The type of the healthcare professional.
+     * @param string $professionalType The type of the healthcare professional.
      * @param int|null $appointmentId (Optional) The unique identifier of the appointment for filtering.
      * @param int|null $patientId (Optional) The unique identifier of the patient for filtering.
      * @return object The response object containing the healthcare professional's information.
      * @throws GuzzleException
      */
-    public function getById(int $id, ProfessionalType $professionalType, ?int $appointmentId = null, ?int $patientId = null): object
+    public function getById(int $id, string $professionalType, ?int $appointmentId = null, ?int $patientId = null): object
     {
         $params = array_filter([
             'patientId' => $patientId,
@@ -86,11 +85,11 @@ class HealthcareProfessional extends HTTPClient
      * Retrieves a healthcare professional by their unique identifier without the associated calendar information.
      *
      * @param int $id The unique identifier of the healthcare professional to be retrieved.
-     * @param ProfessionalType $professionalType The type of the healthcare professional.
+     * @param string $professionalType The type of the healthcare professional.
      * @return object The response object containing the healthcare professional details without calendar information.
      * @throws GuzzleException
      */
-    public function getWithoutCalendarById(int $id, ProfessionalType $professionalType): object
+    public function getWithoutCalendarById(int $id, string $professionalType): object
     {
         $params = array_filter(['professionalType' => $professionalType,]);
         if (!empty($params)) $params = http_build_query($params);
@@ -150,7 +149,7 @@ class HealthcareProfessional extends HTTPClient
      * Retrieves a paginated list of healthcare professionals by their name, filtered by various optional parameters.
      *
      * @param int $page The page number to retrieve in the search results.
-     * @param ProfessionalType $professionalType The type of healthcare professional to filter the results.
+     * @param string $professionalType The type of healthcare professional to filter the results.
      * @param int $patientId The ID of the patient for whom the healthcare professional is being searched.
      * @param string|null $name An optional name fragment to filter professionals.
      * @param string|null $theme An optional theme to filter professionals by theme.
@@ -164,7 +163,7 @@ class HealthcareProfessional extends HTTPClient
      * @return object The response object containing the paginated list of healthcare professionals.
      * @throws GuzzleException
      */
-    public function getByName(int $page, ProfessionalType $professionalType, int $patientId, ?string $name = null, ?string $theme = null, ?string $occupationArea = null, ?string $specialty = null, ?string $approach = null, ?string $ageRange = null, ?string $searchByTriage = null, ?string $executeCount = null, ?string $sortType = null): object
+    public function getByName(int $page, string $professionalType, int $patientId, ?string $name = null, ?string $theme = null, ?string $occupationArea = null, ?string $specialty = null, ?string $approach = null, ?string $ageRange = null, ?string $searchByTriage = null, ?string $executeCount = null, ?string $sortType = null): object
     {
         $params = array_filter([
             'professionalType' => $professionalType,
@@ -190,16 +189,16 @@ class HealthcareProfessional extends HTTPClient
      *
      * @param int $id The unique identifier of the healthcare professional.
      * @param string $startDate The starting date to filter the schedule (format: YYYY-MM-DD).
-     * @param ProfessionalType|null $professionalType The type of professional to filter the schedule, if applicable.
+     * @param string|null $professionalType The type of professional to filter the schedule, if applicable.
      * @param int|null $patientId The unique identifier of the patient, if applicable.
      * @return object The response object containing the available schedules.
      * @throws GuzzleException
      */
-    public function getAvailableSchedule(int $id, string $startDate, ?ProfessionalType $professionalType = null, ?int $patientId = null): object
+    public function getAvailableSchedule(int $id, string $startDate, ?string $professionalType = null, ?int $patientId = null): object
     {
         $params = array_filter([
             'startDate' => $startDate,
-            'professionalType' => enum_exists($professionalType->value) ? $professionalType->value : null,
+            'professionalType' => $professionalType,
             'patientId' => $patientId,
         ]);
         if (!empty($params)) $params = http_build_query($params);
@@ -252,16 +251,16 @@ class HealthcareProfessional extends HTTPClient
      * This link can be used for secure authentication or personalized access.
      *
      * @param int $professionalId The unique identifier of the healthcare professional.
-     * @param ProfessionalType|null $professionalType The type of the professional (optional).
+     * @param string|null $professionalType The type of the professional (optional).
      * @param string|null $route A specific route to be appended to the magic link (optional).
      * @param int|null $appointmentId The unique identifier of an appointment related to the professional (optional).
      * @return object The response object containing the generated magic link.
      * @throws GuzzleException
      */
-    public function generateUniqueMagicLink(int $professionalId, ?ProfessionalType $professionalType = null, ?string $route = null, ?int $appointmentId = null): object
+    public function generateUniqueMagicLink(int $professionalId, ?string $professionalType = null, ?string $route = null, ?int $appointmentId = null): object
     {
         $params = array_filter([
-            'professionalType' => enum_exists($professionalType->value) ? $professionalType->value : null,
+            'professionalType' => $professionalType,
             'route' => $route,
             'appointmentId' => $appointmentId,
         ]);

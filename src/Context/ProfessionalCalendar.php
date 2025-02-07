@@ -5,7 +5,6 @@ namespace O4l3x4ndr3\SdkConexa\Context;
 use GuzzleHttp\Exception\GuzzleException;
 use O4l3x4ndr3\SdkConexa\Configuration;
 use O4l3x4ndr3\SdkConexa\Helpers\HTTPClient;
-use WeekDay;
 
 class ProfessionalCalendar extends HTTPClient
 {
@@ -34,18 +33,18 @@ class ProfessionalCalendar extends HTTPClient
      * Adds a new time period to the professional's calendar.
      *
      * @param int $professionalId Identifier of the professional whose calendar is being updated.
-     * @param WeekDay $dayWeek Day of the week for the new period, represented as an enum.
+     * @param string $dayWeek Day of the week for the new period, represented as an enum.
      * @param string $initialHour Start time of the period in HH:mm format.
      * @param string $finalHour End time of the period in HH:mm format.
      *
      * @return object Response object from the API call.
      * @throws GuzzleException
      */
-    public function addPeriod(int $professionalId, WeekDay $dayWeek, string $initialHour, string $finalHour): object
+    public function addPeriod(int $professionalId, string $dayWeek, string $initialHour, string $finalHour): object
     {
         $data = array_filter([
             'professionalId' => $professionalId,
-            'dayWeek' => enum_exists($dayWeek->value) ? $dayWeek->value : null,
+            'dayWeek' => $dayWeek,
             'initialHour' => $initialHour,
             'finalHour' => $finalHour,
         ]);

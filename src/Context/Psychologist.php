@@ -28,7 +28,7 @@ class Psychologist extends HTTPClient
 
     /**
      * https://apidocs.conexasaude.com.br/v1/enterprise/index.html#operation/psychologistSpecialties
- * Retrieves the specialties for healthcare professionals, specifically psychologists.
+     * Retrieves the specialties for healthcare professionals, specifically psychologists.
      *
      * @return object An object containing the specialty data.
      * @throws GuzzleException
