@@ -61,7 +61,7 @@ class Patient extends HTTPClient
     {
         $endpoint = "/integration/enterprise/family-group";
         $data = $patient->toArray();
-        return $this->call('POST', $endpoint, $data);
+        return $this->call('POST', $endpoint, array_filter($data));
     }
 
     /**
