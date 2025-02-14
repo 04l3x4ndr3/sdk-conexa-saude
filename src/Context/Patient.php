@@ -31,16 +31,17 @@ class Patient extends HTTPClient
     {
         $endpoint = "/integration/enterprise/family-group";
         $data = [
-            'holder' => array_filter($patient->toArray()),
-            'dependents' => null,
+            'holder' => $patient->toArray(),
         ];
 
         if (!empty($dependents)) {
+            $data['dependents'] = [];
+
             /**
              * @var PatientFamilyGroupRequest $dep
              */
             foreach ($dependents as $dep) {
-                $data['dependents'][] = array_filter($dep->toArray());
+                $data['dependents'][] = $dep->toArray();
             }
         }
 
