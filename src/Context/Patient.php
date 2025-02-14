@@ -59,7 +59,7 @@ class Patient extends HTTPClient
      */
     public function savePatient(PatientRequest $patient): object
     {
-        $endpoint = "/integration/enterprise/family-group";
+        $endpoint = "/integration/enterprise/patients";
         $data = $patient->toArray();
         return $this->call('POST', $endpoint, array_filter($data));
     }
