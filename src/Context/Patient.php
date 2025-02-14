@@ -44,7 +44,7 @@ class Patient extends HTTPClient
             }
         }
 
-        return $this->call('POST', $endpoint, $data);
+        return $this->call('POST', $endpoint, array_filter($data));
     }
 
 
