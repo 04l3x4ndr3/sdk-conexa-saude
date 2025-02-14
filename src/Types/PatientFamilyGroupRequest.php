@@ -212,7 +212,7 @@ class PatientFamilyGroupRequest
     public function toArray(): array
     {
         $vars = get_object_vars($this);
-        $vars['address'] = $this->address->toArray();
+        $vars['address'] = isset($this->address) ? $this->address->toArray() : null;
         return $vars;
     }
 }
