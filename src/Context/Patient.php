@@ -114,7 +114,7 @@ class Patient extends HTTPClient
      * @return object The response object containing the patient's information.
      * @throws GuzzleException
      */
-    public function getByHealthCardNumber(int $healthCardNumber): object
+    public function getByHealthCardNumber(string $healthCardNumber): object
     {
         $endpoint = "/integration/enterprise/patients/healthCardNumber/$healthCardNumber";
         return $this->call('GET', $endpoint);
