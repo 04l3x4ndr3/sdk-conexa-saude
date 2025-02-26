@@ -12,12 +12,15 @@ class HTTPClient
     private ?array $header;
     private ?string $token;
     private string $requestBody = '';
+    private string $http_errors;
 
     /**
      * @param Configuration|null $config
      */
     public function __construct(?Configuration $config = null)
     {
+        $this->http_errors = false;
+
         $this->config = $config ?? new Configuration();
         $this->token = $this->config->getToken();
         $this->header = [
@@ -46,11 +49,19 @@ class HTTPClient
             'json' => $data
         ]);
 
+        $options['http_errors'] = $this->http_errors;
+
         $this->requestBody = json_encode($data);
 
         $res = $client->request($method, $url, $options);
 
         return json_decode($res->getBody());
+    }
+
+    public function setHttpErrors(string $http_errors): HTTPClient
+    {
+        $this->http_errors = $http_errors;
+        return $this;
     }
 
     public function getRequestBody(): string
